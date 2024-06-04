@@ -6,16 +6,7 @@ const bodyParser = require('body-parser')
 const dev = require('./config/dev')
 const { User } = require('./models/User');
 
-<<<<<<< HEAD
-const dev = require('./config/dev')
 
-=======
-
-
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
-
->>>>>>> dde1149 (post)
 mongoose.connect(uri=dev.mongoURI)
 .then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
