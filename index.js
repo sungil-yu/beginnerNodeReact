@@ -3,26 +3,27 @@ const mongoose = require('mongoose')
 const app = express()
 const port = 5000
 const bodyParser = require('body-parser')
-const dev = require('./config/dev')
+const config = require('./config/key')
 const { User } = require('./models/User');
 
 
-mongoose.connect(uri=dev.mongoURI)
+app.use(bodyParser.urlencoded({ extended: true}))
+app.use(bodyParser.json())
+
+mongoose.connect(uri=config.mongoURI)
 .then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
-
 
 
 app.get('/', (req, res) => {
   res.send('Hello World!12312')
 })
 
-app.post('/', async (req, res) => {
+app.post('/register', async (req, res) => {
 
   try {
     const user = new User(req.body)
     const savedUser = await user.save()
-    
     res.status(200).json({
       success: true,
       user: savedUser
