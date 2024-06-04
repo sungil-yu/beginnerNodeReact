@@ -20,13 +20,12 @@ app.get('/', (req, res) => {
 })
 
 app.post('/register', async (req, res) => {
-
   try {
     const user = new User(req.body)
+
     const savedUser = await user.save()
     res.status(200).json({
-      success: true,
-      user: savedUser
+      success: true
     })
   } catch (err) {
     res.status(500).json({

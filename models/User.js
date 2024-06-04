@@ -1,4 +1,7 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+const saltRounds = 10
+
 
 const userSchema = mongoose.Schema({
     name: {
@@ -28,6 +31,19 @@ const userSchema = mongoose.Schema({
     },
     tokenExp: {
         type: Number
+    }
+})
+
+userSchema.pre('save', async function (next) {
+    try{
+        const user = this
+        if (!user.isModified('password')) return next()
+
+        const salt = await bcrypt.genSalt(saltRounds)
+        user.password = await bcrypt.hash(user.password, salt)
+        next()
+    } catch (err){
+        next(err)
     }
 })
 
