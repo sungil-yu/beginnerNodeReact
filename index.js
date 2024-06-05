@@ -1,10 +1,11 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const app = express()
-const port = 5000
-const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
-const config = require('./config/key')
+const express = require('express');
+const mongoose = require('mongoose');
+const app = express();
+const port = 5000;
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const config = require('./config/key');
+const { auth } = require('./middleware/auth');
 const { User } = require('./models/User');
 
 
@@ -58,6 +59,19 @@ app.post('/login', (req, res) => {
     console.err(err)
   })
 
+})
+
+app.get('/api/users/auth', auth, (req, res) => {
+  res.status(200).json({
+    _id: req.user._id,
+    isAdmin: req.user.role === 0 ? false : true,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastname: req.user.lastname,
+    role: req.user.role,
+    image: req.user.image
+  })
 })
 
 app.listen(port, () => {
