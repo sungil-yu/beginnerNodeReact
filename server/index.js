@@ -19,7 +19,11 @@ mongoose.connect(uri=config.mongoURI)
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World!12312')
+  res.send('Hello World!')
+})
+
+app.get('/hello', (req, res) => {
+  res.send('Hello World213!')
 })
 
 app.post('/register', async (req, res) => {
@@ -80,6 +84,8 @@ app.get('/api/users/logout', auth, async (req, res) => {
   .then( () => res.status(200).send({success:true}))
   .catch(err => res.json({success: false, err}))
 })
+
+app.get('/api/hello', (rep, res) => res.send('hello'))
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
