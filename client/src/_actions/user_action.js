@@ -5,6 +5,6 @@ export function loginUser (body) {
 
     return {
         type: 'LOGIN_USER',
-        payload: request
+        payload: request,
     }
 }
