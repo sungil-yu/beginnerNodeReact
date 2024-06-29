@@ -33,11 +33,6 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Router>
-          <nav className='navv'>
-            <Link to="/">LANDINGPAGE</Link>
-            <Link to="/register">RegisterPage</Link>
-            <Link to="/login">LoginPage</Link>
-          </nav>
           <div>
             <Routes>
               <Route path="/" element={<LandingPage/>} /> 
